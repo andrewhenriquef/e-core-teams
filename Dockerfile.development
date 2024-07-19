@@ -1,0 +1,27 @@
+FROM ruby:3.3.3
+
+ARG API_PATH=/digital-account-service
+ARG PORT=3007
+ARG PACKAGES="build-essential postgresql-client libpq-dev nodejs nano"
+ARG BUNDLE="bundle install"
+
+ENV API_PATH=${API_PATH}
+ENV PORT=${PORT}
+ENV PACKAGES=${PACKAGES}
+ENV BUNDLE=${BUNDLE}
+
+RUN apt-get update -qq && apt-get install -y $PACKAGES
+
+RUN mkdir $API_PATH
+WORKDIR $API_PATH
+ADD . $API_PATH
+
+RUN bundle update net-pop
+RUN $BUNDLE
+
+EXPOSE $PORT
+
+ENTRYPOINT ["sh", "./entrypoint.sh"]
+
+CMD ["rails", "server", "-b", "0.0.0.0"]
+
