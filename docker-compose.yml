@@ -20,7 +20,7 @@ services:
       - db
       - redis
     volumes:
-      - ".:/digital-account-service"
+      - ".:/e-core-teams"
   db:
     container_name: 'db'
     image: postgres:16.3-alpine3.20
