@@ -6,6 +6,9 @@ class TeamsController < ApplicationController
   end
 
   def show
+    @team = Team.find(params[:id])
+
+    render json: @team, include: :users
   end
 
   def create
