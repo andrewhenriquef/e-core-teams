@@ -10,7 +10,6 @@ docker compose run app bundle exec rails db:prepare
 
 docker compose up app
 
-
 GET Teams
 curl -X GET 'http://localhost:3000/teams' --header "Accept: application/json" | jq .
 
@@ -27,3 +26,7 @@ curl -X GET 'http://localhost:3000/users/dcacc83e-a774-477e-a689-4fd8b10b0eed' -
 TODOS:
 - Each team has one user as a team lead;
 - Developer should be the default role.
+
+- Gems to add
+- shouldamatchers
+- faker
