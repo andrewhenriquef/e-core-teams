@@ -22,6 +22,23 @@ curl -X GET 'http://localhost:3000/users' --header "Accept: application/json" | 
 GET User
 curl -X GET 'http://localhost:3000/users/dcacc83e-a774-477e-a689-4fd8b10b0eed' --header "Accept: application/json" | jq .
 
+GET Roles
+curl -X GET 'http://localhost:3000/roles' --header "Accept: application/json" | jq .
+
+GET Role
+curl -X GET 'http://localhost:3000/roles/3b4dc77f-7114-4581-870f-d686ec97fc30' --header "Accept: application/json" | jq .
+
+POST Role
+curl -X POST 'http://localhost:3000/roles' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "role": {
+    "name": "QA",
+    "description": "Helps the team to reach the goal removing all the problems in the way"
+  }
+}' | jq .
+
+
 
 TODOS:
 - Each team has one user as a team lead;
@@ -29,4 +46,3 @@ TODOS:
 
 - Gems to add
 - shouldamatchers
-- faker

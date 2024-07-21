@@ -16,11 +16,26 @@ class RolesController < ApplicationController
   end
 
   def create
+    role = Role.new(allowed_params)
+
+    if role.save
+      data = RolesPresenter.new(role).serialize
+
+      render json: data, status: :created
+    else
+      render json: role.errors, status: :unprocessable_entity
+    end
   end
 
   def update
   end
 
   def destroy
+  end
+
+  def allowed_params
+    params
+      .require(:role)
+      .permit(:name, :description)
   end
 end
