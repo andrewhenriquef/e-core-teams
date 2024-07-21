@@ -1,13 +1,19 @@
 class TeamsController < ApplicationController
-  before_action :team, only: %i[show update destroy]
+  before_action :team, only: %i[update destroy]
   def index
-    @teams = Team.include(:users).all
+    teams = Team.all
 
-    render json: @teams, include: :users
+    data = TeamsPresenter.new(teams).serialize
+
+    render json: data
   end
 
   def show
-    render json: @team, include: :users
+    team = Team.includes(:users, users: :roles).find(params[:id])
+
+    data = TeamPresenter.new(team).serialize
+
+    render json: data
   end
 
   def create
