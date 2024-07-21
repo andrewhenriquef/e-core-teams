@@ -47,7 +47,11 @@ group :development, :test do
 end
 
 group :development do
+  gem 'annotate', '~> 3.2'
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
 
+group :test do
+  gem 'shoulda-matchers', '~> 6.2'
+end
