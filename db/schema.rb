@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_234742) do
     t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_memberships_on_role_id"
     t.index ["team_id"], name: "index_memberships_on_team_id"
-    t.index ["user_id", "team_id"], name: "index_memberships_on_user_id_and_team_id", unique: true
+    t.index ["user_id", "team_id", "role_id"], name: "index_memberships_on_user_id_and_team_id_and_role_id", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 

@@ -9,10 +9,10 @@
 #   end
 
 Role.create(name: 'developer')
-Role.create(name: 'Product Owner')
-Role.create(name: 'Tester')
+Role.create(name: 'product owner')
+Role.create(name: 'tester')
 
-14.times do
+6.times do
   User.create(name: Faker::Name.name)
 end
 
@@ -20,15 +20,16 @@ Team.create(name: 'N3', description: 'Support team for N3')
 Team.create(name: 'Delivery', description: 'Delivery new features')
 
 roles = Role.all
+users = User.all.first(3)
 
-users = User.all
+3.times do |index|
+  Membership.create(user: users[index], team: Team.first, role: roles[index])
+end
 
-7.times do |index|
-  if index < 7
-    Membership.create(user: users[index], team: Team.first, role: roles.sample)
-  else
-    Membership.create(user: users[index], team: Team.last, role: roles.sample)
-  end
+users = User.all.last(3)
+
+3.times do |index|
+  Membership.create(user: users[index], team: Team.last, role: roles[index])
 end
 
 Team.first.update(team_lead: User.first)
