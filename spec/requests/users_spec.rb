@@ -48,12 +48,12 @@ RSpec.describe "Users", type: :request do
   end
 
   path '/users/{id}' do
-    get 'Show team' do
-      tags 'Team'
+    get 'Show User' do
+      tags 'User'
       produces 'application/json'
       parameter name: :id, in: :path, type: :string, format: :uuid
 
-      response '200', 'Show team' do
+      response '200', 'Show user' do
         let(:membership) { create(:membership) }
         let(:user) { membership.user }
         let(:id) { user.id }
