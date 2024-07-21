@@ -10,6 +10,11 @@ docker compose run app bundle exec rails db:prepare
 
 docker compose up app
 
+
+You can use a tool as curl or postman or even run the server and access the url http://localhost:3000/api-docs to use the rswag documentation
+
+see the curl examples below
+
 GET Teams
 curl -X GET 'http://localhost:3000/teams' --header "Accept: application/json" | jq .
 
