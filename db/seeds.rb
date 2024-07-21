@@ -8,16 +8,28 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Team.create(name: 'N3', description: 'Support team for N3')
-Team.create(name: 'Delivery', description: 'Delivery new features')
-
 Role.create(name: 'developer')
 Role.create(name: 'Product Owner')
 Role.create(name: 'Tester')
 
-User.create(name: 'John Doe')
-User.create(name: 'Jane Doe ')
-User.create(name: 'Janet Doe')
+14.times do
+  User.create(name: Faker::Name.name)
+end
 
-Membership.create(user: User.first, team: Team.first, role: Role.first)
-Membership.create(user: User.first, team: Team.last, role: Role.first)
+Team.create(name: 'N3', description: 'Support team for N3')
+Team.create(name: 'Delivery', description: 'Delivery new features')
+
+roles = Role.all
+
+users = User.all
+
+7.times do |index|
+  if index < 7
+    Membership.create(user: users[index], team: Team.first, role: roles.sample)
+  else
+    Membership.create(user: users[index], team: Team.last, role: roles.sample)
+  end
+end
+
+Team.first.update(team_lead: User.first)
+Team.last.update(team_lead: User.last)

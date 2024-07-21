@@ -18,12 +18,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_234742) do
   create_table "memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "team_id", null: false
-    t.uuid "role_id", null: false
+    t.uuid "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_memberships_on_role_id"
     t.index ["team_id"], name: "index_memberships_on_team_id"
-    t.index ["user_id", "team_id", "role_id"], name: "index_memberships_on_user_id_and_team_id_and_role_id", unique: true
+    t.index ["user_id", "team_id"], name: "index_memberships_on_user_id_and_team_id", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
@@ -38,9 +38,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_234742) do
   create_table "teams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
+    t.uuid "team_lead_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_teams_on_name", unique: true
+    t.index ["team_lead_id"], name: "index_teams_on_team_lead_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -53,4 +55,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_234742) do
   add_foreign_key "memberships", "roles"
   add_foreign_key "memberships", "teams"
   add_foreign_key "memberships", "users"
+  add_foreign_key "teams", "users", column: "team_lead_id"
 end
