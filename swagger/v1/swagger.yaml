@@ -1,0 +1,311 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/roles":
+    get:
+      summary: List roles
+      tags:
+      - Roles
+      responses:
+        '200':
+          description: roles listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  roles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        name:
+                          type: string
+                        description:
+                          type: string
+                      required:
+                      - id
+                      - name
+                required:
+                - roles
+    post:
+      summary: Create role
+      tags:
+      - Role Create
+      parameters: []
+      responses:
+        '201':
+          description: create role
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  role:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      description:
+                        type: string
+                    required:
+                    - id
+                    - name
+                required:
+                - role
+        '422':
+          description: could not create role
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: array
+                    items:
+                      type: string
+                      example: can't be blank
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+                    example: can't be blank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+              required:
+              - name
+  "/roles/{id}":
+    get:
+      summary: Show role
+      tags:
+      - Role
+      parameters:
+      - name: id
+        in: path
+        format: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Show role
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  role:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      description:
+                        type: string
+                    required:
+                    - id
+                    - name
+                required:
+                - role
+  "/teams":
+    get:
+      summary: List teams
+      tags:
+      - Teams
+      responses:
+        '200':
+          description: teams listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  teams:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        name:
+                          type: string
+                        description:
+                          type: string
+                      required:
+                      - id
+                      - name
+                required:
+                - teams
+  "/teams/{id}":
+    get:
+      summary: Show team
+      tags:
+      - Team
+      parameters:
+      - name: id
+        in: path
+        format: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Show team
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        name:
+                          type: string
+                        roles:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                              name:
+                                type: string
+                              description:
+                                type: string
+                            required:
+                            - id
+                            - name
+                      required:
+                      - id
+                      - name
+                      - roles
+                required:
+                - id
+                - name
+                - users
+  "/users":
+    get:
+      summary: List users
+      tags:
+      - Users
+      responses:
+        '200':
+          description: users listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        name:
+                          type: string
+                        roles:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                              name:
+                                type: string
+                              description:
+                                type: string
+                            required:
+                            - id
+                            - name
+                      required:
+                      - id
+                      - name
+                required:
+                - users
+  "/users/{id}":
+    get:
+      summary: Show User
+      tags:
+      - User
+      parameters:
+      - name: id
+        in: path
+        format: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Show user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      roles:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+                            description:
+                              type: string
+                          required:
+                          - id
+                          - name
+                required:
+                - user
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
