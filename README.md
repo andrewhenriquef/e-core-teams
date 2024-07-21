@@ -10,6 +10,9 @@ docker compose run app bundle exec rails db:prepare
 
 docker compose up app
 
+run the tests
+
+docker compose run tests
 
 You can use a tool as curl or postman or even run the server and access the url http://localhost:3000/api-docs to use the rswag documentation
 
@@ -46,7 +49,6 @@ curl -X POST 'http://localhost:3000/roles' \
 
 
 TODOS:
-- Each team has one user as a team lead;
 - Developer should be the default role.
 
 - Gems to add
