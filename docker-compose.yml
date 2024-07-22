@@ -20,7 +20,7 @@ services:
       - db
       - redis
     volumes:
-      - ".:/app"
+      - ".:/e-core-teams"
   tests:
     container_name: 'tests'
     build:
@@ -42,7 +42,7 @@ services:
       - db
       - redis
     volumes:
-      - ".:/tests"
+      - ".:/e-core-teams"
   db:
     container_name: 'db'
     image: postgres:16.3-alpine3.20
@@ -67,4 +67,5 @@ services:
 volumes:
   db:
   redis:
+  e-core-teams:
 
