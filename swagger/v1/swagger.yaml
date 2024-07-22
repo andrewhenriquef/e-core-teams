@@ -4,6 +4,207 @@ info:
   title: API V1
   version: v1
 paths:
+  "/memberships":
+    post:
+      summary: Create membership
+      tags:
+      - Membership Create
+      parameters: []
+      responses:
+        '201':
+          description: create membership
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  membership:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      role:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          name:
+                            type: string
+                          description:
+                            type: string
+                        required:
+                        - id
+                        - name
+                      team:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          name:
+                            type: string
+                          description:
+                            type: string
+                        required:
+                        - id
+                        - name
+                      user:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          name:
+                            type: string
+                        required:
+                        - id
+                        - name
+                required:
+                - membership
+        '422':
+          description: could not create membership
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  role_id:
+                    type: array
+                    items:
+                      type: string
+                      example: should be unique per team and role
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+                    example: can't be blank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                membership:
+                  type: object
+                  properties:
+                    team_id:
+                      type: string
+                      format: uuid
+                    user_id:
+                      type: string
+                      format: uuid
+                    role_id:
+                      type: string
+                      format: uuid
+                  required:
+                  - team_id
+                  - user_id
+              required:
+              - membership
+  "/role_memberships/{role_id}":
+    get:
+      summary: Show role
+      tags:
+      - Role
+      parameters:
+      - name: role_id
+        in: path
+        format: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Show role
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  role:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      description:
+                        type: string
+                      memberships:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            role:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                                name:
+                                  type: string
+                                description:
+                                  type: string
+                              required:
+                              - id
+                              - name
+                            team:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                                name:
+                                  type: string
+                                description:
+                                  type: string
+                              required:
+                              - id
+                              - name
+                            user:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                                name:
+                                  type: string
+                                roles:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                        format: uuid
+                                      name:
+                                        type: string
+                                      description:
+                                        type: string
+                                    required:
+                                    - id
+                                    - name
+                              required:
+                              - id
+                              - name
+                              - roles
+                          required:
+                          - id
+                          - role
+                          - team
+                          - user
+                    required:
+                    - id
+                    - name
+                    - memberships
+                required:
+                - role
   "/roles":
     get:
       summary: List roles
