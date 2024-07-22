@@ -8,7 +8,7 @@ class TeamsController < ApplicationController
   end
 
   def show
-    team = Team.includes(:users, users: :roles).find(params[:id])
+    team = Team.includes(:team_lead, :users, users: :roles).find(params[:id])
 
     data = TeamPresenter.new(team).serialize
 

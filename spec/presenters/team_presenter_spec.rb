@@ -3,16 +3,22 @@
 require 'rails_helper'
 
 RSpec.describe TeamPresenter do
-  let(:membership) { create(:membership) }
-  let(:team) { membership.team }
-  let(:user) { membership.user }
+  let(:team_lead) { create(:user) }
+  let(:team) { create(:team, team_lead:) }
+  let!(:membership) { create(:membership, team:) }
   let(:role) { membership.role }
+  let(:user) { membership.user }
   let(:presenter) { described_class.new(team) }
   let(:expected_result) do
     {
       id: team.id,
       name: team.name,
       description: team.description,
+      team_lead: {
+        id: team_lead.id,
+        name: team_lead.name,
+        roles: []
+      },
       users: [
         {
           id: user.id,
