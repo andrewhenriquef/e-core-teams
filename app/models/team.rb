@@ -4,11 +4,12 @@
 #
 # Table name: teams
 #
-#  id          :uuid             not null, primary key
-#  name        :string           not null
-#  description :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :uuid             not null, primary key
+#  name         :string           not null
+#  description  :text
+#  team_lead_id :uuid
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 class Team < ApplicationRecord
   has_many :memberships
