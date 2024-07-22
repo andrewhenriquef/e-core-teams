@@ -5,17 +5,17 @@ FactoryBot.define do
   end
 
   trait :developer do
-    name { 'Developer' }
+    name { 'developer' }
     description { 'Developers are responsible for developing software.' }
   end
 
   trait :product_owner do
-    name { 'Product Owner' }
+    name { 'product owner' }
     description { 'Product Owners are responsible for the product backlog.' }
   end
 
   trait :tester do
-    name { 'Tester' }
+    name { 'tester' }
     description { 'Testers are responsible for testing software.' }
   end
 end
