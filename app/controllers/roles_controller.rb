@@ -27,12 +27,6 @@ class RolesController < ApplicationController
     end
   end
 
-  def update
-  end
-
-  def destroy
-  end
-
   def allowed_params
     params
       .require(:role)

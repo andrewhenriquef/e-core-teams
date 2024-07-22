@@ -15,9 +15,6 @@ class MembershipsController < ApplicationController
     end
   end
 
-  def update
-  end
-
   private
 
   def allowed_params

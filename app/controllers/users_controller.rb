@@ -14,13 +14,4 @@ class UsersController < ApplicationController
 
     render json: data
   end
-
-  def create
-  end
-
-  def update
-  end
-
-  def destroy
-  end
 end
