@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+
+  resources :roles, only: %i[index show create]
+  resources :teams, only: %i[index show create]
+  resources :users, only: %i[index show]
+  resources :memberships, only: %i[create]
+  resources :role_memberships, only: %i[show], param: :role_id
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

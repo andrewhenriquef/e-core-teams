@@ -1,6 +1,6 @@
 FROM ruby:3.3.3
 
-ARG API_PATH=/digital-account-service
+ARG API_PATH=/e-core-teams
 ARG PORT=3007
 ARG PACKAGES="build-essential postgresql-client libpq-dev nodejs nano"
 ARG BUNDLE="bundle install"
@@ -16,6 +16,7 @@ RUN mkdir $API_PATH
 WORKDIR $API_PATH
 ADD . $API_PATH
 
+RUN gem install bundler
 RUN bundle update net-pop
 RUN $BUNDLE
 

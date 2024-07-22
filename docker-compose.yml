@@ -20,7 +20,29 @@ services:
       - db
       - redis
     volumes:
-      - ".:/digital-account-service"
+      - ".:/e-core-teams"
+  tests:
+    container_name: 'tests'
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rspec spec"
+    tty: true
+    stdin_open: true
+    ports:
+      - 3007:3007
+    expose:
+      - 3007
+    environment:
+      - RAILS_ENV=test
+      - API_AUTHORIZATION=test
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ".:/e-core-teams"
   db:
     container_name: 'db'
     image: postgres:16.3-alpine3.20
@@ -45,4 +67,5 @@ services:
 volumes:
   db:
   redis:
+  e-core-teams:
 
