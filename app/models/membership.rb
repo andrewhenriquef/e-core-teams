@@ -17,4 +17,17 @@ class Membership < ApplicationRecord
   belongs_to :role
 
   validates :user_id, :team_id, presence: true
+  validates :role_id,
+            uniqueness: {
+              scope: %i[user_id team_id],
+              message: 'should be unique per team and role'
+            }
+
+  before_validation :set_default_role, if: -> { role_id.blank? }
+
+  private
+
+  def set_default_role
+    self.role_id ||= Role.find_or_create_by(name: 'developer').id
+  end
 end
