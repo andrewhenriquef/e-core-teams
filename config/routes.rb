@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :teams, only: %i[index show create update destroy]
   resources :users, only: %i[index show create update destroy]
   resources :memberships, only: %i[create update]
+  resources :role_memberships, only: %i[index show], param: :role_id
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
